@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FoodType">
+          <Key>
+            <PropertyRef Name="FoodType_ID" />
+          </Key>
+          <Property Name="FoodType_ID" Type="int" Nullable="false" />
+          <Property Name="FoodType" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FIO" Type="nchar" MaxLength="30" />
+          <Property Name="Data" Type="nchar" MaxLength="20" />
+          <Property Name="AllSum" Type="money" />
+          <Property Name="Bonus" Type="int" />
+        </EntityType>
+        <EntityType Name="Kitchen">
+          <Key>
+            <PropertyRef Name="Kitchen_ID" />
+          </Key>
+          <Property Name="Kitchen_ID" Type="int" Nullable="false" />
+          <Property Name="Kitchen" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Kor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Kitchen" Type="nchar" MaxLength="20" />
+          <Property Name="Type" Type="nchar" MaxLength="20" />
+          <Property Name="Name" Type="nchar" MaxLength="20" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Kol" Type="int" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Kitchen_ID" Type="int" />
+          <Property Name="FoodType_ID" Type="int" />
+          <Property Name="Name" Type="nchar" MaxLength="20" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Weight" Type="int" />
+          <Property Name="Koll" Type="int" />
+          <Property Name="Img" Type="nvarchar" MaxLength="50" />
+          <Property Name="Inf" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Oformlenie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FIO" Type="nchar" MaxLength="30" />
+          <Property Name="Address" Type="nchar" MaxLength="50" />
+          <Property Name="Phone" Type="int" />
+        </EntityType>
+        <Association Name="FK_Menu_ToTable">
+          <End Role="Kitchen" Type="Self.Kitchen" Multiplicity="0..1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kitchen">
+              <PropertyRef Name="Kitchen_ID" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="Kitchen_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_ToTable_1">
+          <End Role="FoodType" Type="Self.FoodType" Multiplicity="0..1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodType">
+              <PropertyRef Name="FoodType_ID" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="FoodType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Database1ModelContainer">
+          <EntitySet Name="FoodType" EntityType="Self.FoodType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kitchen" EntityType="Self.Kitchen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kor" EntityType="Self.Kor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oformlenie" EntityType="Self.Oformlenie" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Menu_ToTable" Association="Self.FK_Menu_ToTable">
+            <End Role="Kitchen" EntitySet="Kitchen" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_ToTable_1" Association="Self.FK_Menu_ToTable_1">
+            <End Role="FoodType" EntitySet="FoodType" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FoodType">
+          <Key>
+            <PropertyRef Name="FoodType_ID" />
+          </Key>
+          <Property Name="FoodType_ID" Type="Int32" Nullable="false" />
+          <Property Name="FoodType1" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_Menu_ToTable_1" FromRole="FoodType" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Data" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="AllSum" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Bonus" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Kitchen">
+          <Key>
+            <PropertyRef Name="Kitchen_ID" />
+          </Key>
+          <Property Name="Kitchen_ID" Type="Int32" Nullable="false" />
+          <Property Name="Kitchen1" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_Menu_ToTable" FromRole="Kitchen" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Kor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Kitchen" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Kol" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Kitchen_ID" Type="Int32" />
+          <Property Name="FoodType_ID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Inf" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="FoodType" Relationship="Self.FK_Menu_ToTable_1" FromRole="Menu" ToRole="FoodType" />
+          <NavigationProperty Name="Kitchen" Relationship="Self.FK_Menu_ToTable" FromRole="Menu" ToRole="Kitchen" />
+          <Property Name="Koll" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Oformlenie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Menu_ToTable_1">
+          <End Role="FoodType" Type="Self.FoodType" Multiplicity="0..1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodType">
+              <PropertyRef Name="FoodType_ID" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="FoodType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_ToTable">
+          <End Role="Kitchen" Type="Self.Kitchen" Multiplicity="0..1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kitchen">
+              <PropertyRef Name="Kitchen_ID" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="Kitchen_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FoodTypes" EntityType="Self.FoodType" />
+          <EntitySet Name="Historys" EntityType="Self.History" />
+          <EntitySet Name="Kitchens" EntityType="Self.Kitchen" />
+          <EntitySet Name="Kors" EntityType="Self.Kor" />
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="Oformlenies" EntityType="Self.Oformlenie" />
+          <AssociationSet Name="FK_Menu_ToTable_1" Association="Self.FK_Menu_ToTable_1">
+            <End Role="FoodType" EntitySet="FoodTypes" />
+            <End Role="Menu" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_ToTable" Association="Self.FK_Menu_ToTable">
+            <End Role="Kitchen" EntitySet="Kitchens" />
+            <End Role="Menu" EntitySet="Menus" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="FoodTypes">
+            <EntityTypeMapping TypeName="Database1Model.FoodType">
+              <MappingFragment StoreEntitySet="FoodType">
+                <ScalarProperty Name="FoodType_ID" ColumnName="FoodType_ID" />
+                <ScalarProperty Name="FoodType1" ColumnName="FoodType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historys">
+            <EntityTypeMapping TypeName="Database1Model.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="AllSum" ColumnName="AllSum" />
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kitchens">
+            <EntityTypeMapping TypeName="Database1Model.Kitchen">
+              <MappingFragment StoreEntitySet="Kitchen">
+                <ScalarProperty Name="Kitchen_ID" ColumnName="Kitchen_ID" />
+                <ScalarProperty Name="Kitchen1" ColumnName="Kitchen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kors">
+            <EntityTypeMapping TypeName="Database1Model.Kor">
+              <MappingFragment StoreEntitySet="Kor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Kitchen" ColumnName="Kitchen" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Kol" ColumnName="Kol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="Database1Model.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Koll" ColumnName="Koll" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Kitchen_ID" ColumnName="Kitchen_ID" />
+                <ScalarProperty Name="FoodType_ID" ColumnName="FoodType_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+                <ScalarProperty Name="Inf" ColumnName="Inf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Oformlenies">
+            <EntityTypeMapping TypeName="Database1Model.Oformlenie">
+              <MappingFragment StoreEntitySet="Oformlenie">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
